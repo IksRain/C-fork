@@ -1,5 +1,5 @@
 <template>
-  <span class="term-with-tooltip">
+  <span class="term">
     <!-- 术语部分 -->
     <span
       class="term-block"
@@ -12,7 +12,7 @@
     <transition>
       <span
         v-if="isHovered"
-        class="content-block"
+        class="term-content-block"
         @mouseenter="isHovered = true"
         @mouseleave="isHovered = false"
       >
@@ -29,10 +29,8 @@ const isHovered = ref(false);
 </script>
 
 <style scoped>
-.term-with-tooltip {
+.term {
   position: relative;
-  display: inline-flex;
-  flex-direction: column;
 }
 
 .term-block {
@@ -42,20 +40,22 @@ const isHovered = ref(false);
   display: inline-block;
 }
 
-.content-block {
-  position: absolute !important;
-  width: max-content !important;
+.term-content-block {
+  /* view & layout */
+  position: absolute;
+  z-index: var(--vp-z-index-layout-top);
   transition: opacity 0.2s;
-
-  bottom: 75%;
+  /* view-other */
+  max-width: 90vw;
+  width: max-content;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  /* border */
   border: 1px solid var(--vp-c-divider);
   background-color: var(--vp-c-bg-soft);
   border-radius: 8px;
   padding: 3px 20px 3px 20px;
-  color: var(--vp-c-text-2);
-  max-width: 90vw;
-  z-index: var(--vp-z-index-layout-top);
   box-shadow: 0 4px 4px rgba(63, 53, 70, 0.32);
-  margin-bottom: 8px;
+  color: var(--vp-c-text-2);
 }
 </style>
