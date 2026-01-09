@@ -1,28 +1,31 @@
 <template>
   <span class="term-with-tooltip">
     <!-- 术语部分 -->
-    <span class="term-block" 
-    @mouseenter="isHovered = true"
-    @mouseleave="isHovered = false">
-      <slot></slot>
-    </span>
-    
-    <!-- 提示内容部分 -->
-    <div
-      v-if="isHovered"
-      class="content-block"
+    <span
+      class="term-block"
       @mouseenter="isHovered = true"
       @mouseleave="isHovered = false"
     >
-      <slot name="tip" ></slot>
-    </div>
+      <slot></slot>
+    </span>
+
+    <transition>
+      <span
+        v-if="isHovered"
+        class="content-block"
+        @mouseenter="isHovered = true"
+        @mouseleave="isHovered = false"
+      >
+        <slot name="tip"></slot>
+      </span>
+    </transition>
   </span>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const isHovered = ref(false)
+const isHovered = ref(false);
 </script>
 
 <style scoped>
@@ -40,9 +43,9 @@ const isHovered = ref(false)
 }
 
 .content-block {
-
   position: absolute !important;
   width: max-content !important;
+  transition: opacity 0.2s;
 
   bottom: 75%;
   border: 1px solid var(--vp-c-divider);
@@ -51,7 +54,6 @@ const isHovered = ref(false)
   padding: 3px 20px 3px 20px;
   color: var(--vp-c-text-2);
   max-width: 90vw;
-  font-size: 14px;
   z-index: var(--vp-z-index-layout-top);
   box-shadow: 0 4px 4px rgba(63, 53, 70, 0.32);
   margin-bottom: 8px;
